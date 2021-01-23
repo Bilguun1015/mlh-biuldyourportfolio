@@ -4,8 +4,7 @@ import axios from 'axios';
 const SpotForm = (props) => {
   // variables and props
   const geocodeAPI = 'https://maps.googleapis.com/maps/api/geocode/json?';
-  const { tourData, setTourData, visible, goForward, goBackward } = props;
-
+  const { tourData, setTourData, visible, goBackward, submitTour } = props;
   // component state
   const [stopData, setStopData] = useState({
     stop_number: 0,
@@ -47,11 +46,21 @@ const SpotForm = (props) => {
     setStopData({ ...stopData, stop_number: stopData.stop_number + 1 });
   };
 
+  const displayStops = () => {
+    return tourData.stops.map((stop, i) => {
+      return (
+        <span className='stop' key={i}>
+          {stop.name}&rarr;
+        </span>
+      );
+    });
+  };
+
   return (
     <div
       className={visible === 3 ? 'stop-container slide-up' : 'stop-container'}
     >
-      <h2 className='heading-secondary'>Add a stop</h2>
+      <h2 className='heading-secondary'>Add a stop to {tourData.tour_name}</h2>
       <form onSubmit={onFormSubmit} className='form stop-form'>
         <div className='form__box'>
           <label>Stop name</label>
@@ -60,7 +69,6 @@ const SpotForm = (props) => {
             name='name'
             defaultValue={stopData.name}
             onChange={onInputChange}
-            placeholder='name'
             required
           ></input>
         </div>
@@ -71,55 +79,39 @@ const SpotForm = (props) => {
             name='address'
             defaultValue={stopData.address}
             onChange={onInputChange}
-            placeholder='address'
             required
           ></input>
         </div>
         <div className='form__box long'>
           <label>Stop comment</label>
           <textarea
-            className='input '
+            className='input'
             name='user_comment'
             defaultValue={stopData.user_comment}
             onChange={onInputChange}
-            placeholder='comment'
           ></textarea>
         </div>
         <div className='btn-box'>
           <a href='#' className='btn' onClick={goBackward}>
             &larr; Back
           </a>
-          <a
-            href='#'
-            onClick={onFormSubmit}
-            className='btn'
-            onClick={goForward}
-          >
+          <a href='#' onClick={onFormSubmit} className='btn'>
             Add a spot
           </a>
         </div>
       </form>
+      <div className='stops'>
+        {tourData.stops.length ? (
+          <div>
+            <h2>Added stops </h2> {displayStops()}
+            <a href='#' onClick={submitTour} className='btn'>
+              Submit tour
+            </a>
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 };
 
 export default SpotForm;
-
-// tour_data = {'tour_description': 'A tour of my favorite city, TownTown!', 'tour_name': 'TownTown Tour', 'user_id': 'liam', 'stops': [
-//   {
-//           stop_number: 0
-//           name: Starbucks
-//           lat: 73.23321
-//           lng: -123.32521
-//           address: 123 Coffee Lane, NY, NY ZIPCODE
-//           user_comment: “This is my favorite starbucks and I have lots of good memories of their coffee”
-//       }
-//       {
-//           stop_number: 1
-//           name: MLH Park
-//           lat: 73.42313
-//           lng: -123.501023
-//           address: 555 Hacker St, NY, NY ZIPCODE
-//           user_comment: "This is where I did my first hackathon, it was lots of fun."
-//       }
-// ]}

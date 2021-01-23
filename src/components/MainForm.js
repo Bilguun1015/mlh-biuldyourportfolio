@@ -6,7 +6,6 @@ import SpotForm from './SpotForm';
 function MainForm(props) {
   const createTourAPI = 'https://arcane-atoll-68110.herokuapp.com/tours/create';
   const { visible, goForward, goBackward } = props;
-  console.log(visible);
 
   const [tourData, setTourData] = useState({
     tour_description: '',
@@ -15,11 +14,10 @@ function MainForm(props) {
     stops: [],
   });
 
-  const onFormSubmit = async (e) => {
+  const onFormSubmit = (e) => {
     e.preventDefault();
-    const response = await axios.post(createTourAPI, tourData);
 
-    console.log(response);
+    goForward();
   };
 
   const onInputChange = (e) => {
@@ -28,6 +26,11 @@ function MainForm(props) {
       ...tourData,
       [name]: value,
     });
+  };
+
+  const submitTour = async () => {
+    const response = await axios.post(createTourAPI, tourData);
+    console.log(response);
   };
 
   return (
@@ -69,12 +72,7 @@ function MainForm(props) {
           <a href='#' className='btn' onClick={goBackward}>
             &larr; Back
           </a>
-          <a
-            href='#'
-            onClick={onFormSubmit}
-            className='btn'
-            onClick={goForward}
-          >
+          <a href='#' onClick={onFormSubmit} className='btn'>
             Next &rarr;
           </a>
         </div>
@@ -86,6 +84,7 @@ function MainForm(props) {
         visible={visible}
         goForward={goForward}
         goBackward={goBackward}
+        submitTour={submitTour}
       />
     </div>
   );
