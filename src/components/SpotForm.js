@@ -4,7 +4,7 @@ import axios from 'axios';
 const SpotForm = (props) => {
   // variables and props
   const geocodeAPI = 'https://maps.googleapis.com/maps/api/geocode/json?';
-  const { tourData, setTourData } = props;
+  const { tourData, setTourData, visible, goForward, goBackward } = props;
 
   // component state
   const [stopData, setStopData] = useState({
@@ -32,7 +32,6 @@ const SpotForm = (props) => {
       `${geocodeAPI}address=${stopData.address}&key=${process.env.REACT_APP_GOOGLE_KEY}`
     );
     const { geometry, formatted_address } = result.data.results[0];
-    // console.log(geometry.location.lat, formatted_address);
     // build up the data from succesful call
 
     const newData = {
@@ -49,32 +48,56 @@ const SpotForm = (props) => {
   };
 
   return (
-    <div className='stop-container'>
+    <div
+      className={visible === 3 ? 'stop-container slide-up' : 'stop-container'}
+    >
       <h2 className='heading-secondary'>Add a stop</h2>
       <form onSubmit={onFormSubmit} className='form stop-form'>
-        <label>Spot address</label>
-
-        <input
-          name='name'
-          defaultValue={stopData.name}
-          onChange={onInputChange}
-          placeholder='name'
-          required
-        ></input>
-        <input
-          name='address'
-          defaultValue={stopData.address}
-          onChange={onInputChange}
-          placeholder='address'
-          required
-        ></input>
-        <input
-          name='user_comment'
-          defaultValue={stopData.user_comment}
-          onChange={onInputChange}
-          placeholder='comment'
-        ></input>
-        <button type='submit'>Add a stop</button>
+        <div className='form__box'>
+          <label>Stop name</label>
+          <input
+            className='input'
+            name='name'
+            defaultValue={stopData.name}
+            onChange={onInputChange}
+            placeholder='name'
+            required
+          ></input>
+        </div>
+        <div className='form__box'>
+          <label>Stop address</label>
+          <input
+            className='input'
+            name='address'
+            defaultValue={stopData.address}
+            onChange={onInputChange}
+            placeholder='address'
+            required
+          ></input>
+        </div>
+        <div className='form__box long'>
+          <label>Stop comment</label>
+          <textarea
+            className='input '
+            name='user_comment'
+            defaultValue={stopData.user_comment}
+            onChange={onInputChange}
+            placeholder='comment'
+          ></textarea>
+        </div>
+        <div className='btn-box'>
+          <a href='#' className='btn' onClick={goBackward}>
+            &larr; Back
+          </a>
+          <a
+            href='#'
+            onClick={onFormSubmit}
+            className='btn'
+            onClick={goForward}
+          >
+            Add a spot
+          </a>
+        </div>
       </form>
     </div>
   );
