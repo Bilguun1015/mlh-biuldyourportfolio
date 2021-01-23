@@ -69,12 +69,12 @@ function MainForm(props) {
           />
         </div>
         <div className='btn-box'>
-          <a href='#' className='btn' onClick={goBackward}>
+          <button className='btn' onClick={goBackward}>
             &larr; Back
-          </a>
-          <a href='#' onClick={onFormSubmit} className='btn'>
+          </button>
+          <button onClick={onFormSubmit} className='btn'>
             Next &rarr;
-          </a>
+          </button>
         </div>
       </form>
 

@@ -69,7 +69,6 @@ const SpotForm = (props) => {
             name='name'
             defaultValue={stopData.name}
             onChange={onInputChange}
-            required
           ></input>
         </div>
         <div className='form__box'>
@@ -79,7 +78,6 @@ const SpotForm = (props) => {
             name='address'
             defaultValue={stopData.address}
             onChange={onInputChange}
-            required
           ></input>
         </div>
         <div className='form__box long'>
@@ -92,21 +90,21 @@ const SpotForm = (props) => {
           ></textarea>
         </div>
         <div className='btn-box'>
-          <a href='#' className='btn' onClick={goBackward}>
+          <button className='btn' onClick={goBackward}>
             &larr; Back
-          </a>
-          <a href='#' onClick={onFormSubmit} className='btn'>
+          </button>
+          <button onClick={onFormSubmit} className='btn'>
             Add a spot
-          </a>
+          </button>
         </div>
       </form>
       <div className='stops'>
         {tourData.stops.length ? (
           <div>
             <h2>Added stops </h2> {displayStops()}
-            <a href='#' onClick={submitTour} className='btn'>
+            <button onClick={submitTour} className='btn'>
               Submit tour
-            </a>
+            </button>
           </div>
         ) : null}
       </div>

@@ -29,9 +29,9 @@ function App() {
           lacinia sed, semper vel risus. Curabitur ut est vel tellus efficitur
           rutrum. Duis fringilla turpis nibh, quis placerat sem sollicitudin id.
         </p>
-        <a class='btn' onClick={goForward}>
+        <button class='btn' onClick={goForward}>
           Build your tour &rarr;
-        </a>
+        </button>
       </main>
       <MainForm
         visible={visible}
