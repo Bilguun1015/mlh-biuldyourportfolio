@@ -10,4 +10,8 @@ A user will be able to input a tour with minimum 1 stop.
 ## Tech-Stack
 
 - React.js
-- Google API
+- Google Geocode API
+
+## Things to add
+
+- Integrate with Google Maps API and display google maps -- users can add tour in the google maps

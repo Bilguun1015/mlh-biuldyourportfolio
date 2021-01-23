@@ -1,3 +1,4 @@
+// This component is not ready to be displayed
 import React from 'react';
 import {
   GoogleMap,
