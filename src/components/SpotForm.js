@@ -26,24 +26,23 @@ const SpotForm = (props) => {
   const onFormSubmit = async (e) => {
     e.preventDefault();
     // axios call to the Google APi to get the lat and lng
+    const result = await axios.get(
+      `${geocodeAPI}address=${stopData.address}&key=${process.env.REACT_APP_GOOGLE_KEY}`
+    );
+    const { geometry, formatted_address } = result.data.results[0];
 
-    // const result = await axios.get(
-    //   `${geocodeAPI}address=${stopData.address}&key=${process.env.REACT_APP_GOOGLE_KEY}`
-    // );
-    // const { geometry, formatted_address } = result.data.results[0];
     // build up the data from succesful call
+    const newData = {
+      stop_number: stopData.stop_number,
+      name: stopData.name,
+      lat: geometry.location.lat,
+      lng: geometry.location.lng,
+      address: formatted_address,
+      user_comment: stopData.user_comment,
+    };
 
-    // const newData = {
-    //   stop_number: stopData.stop_number,
-    //   name: stopData.name,
-    //   lat: geometry.location.lat,
-    //   lng: geometry.location.lng,
-    //   address: formatted_address,
-    //   user_comment: stopData.user_comment,
-    // };
-
-    // setTourData({ ...tourData, stops: [...tourData.stops, newData] });
-    // setStopData({ ...stopData, stop_number: stopData.stop_number + 1 });
+    setTourData({ ...tourData, stops: [...tourData.stops, newData] });
+    setStopData({ ...stopData, stop_number: stopData.stop_number + 1 });
   };
 
   const displayStops = () => {

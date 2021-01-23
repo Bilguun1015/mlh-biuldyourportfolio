@@ -14,8 +14,6 @@ function MainForm(props) {
     stops: [],
   });
 
-  const [required, setRequired] = useState(true);
-
   const onFormSubmit = (e) => {
     e.preventDefault();
     goForward();
