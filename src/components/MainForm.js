@@ -62,7 +62,7 @@ function MainForm() {
         <button type='submit'>send</button>
       </form>
 
-      <SpotForm tourData={tourData} setTourData={setTourData} />
+      {/* <SpotForm tourData={tourData} setTourData={setTourData} /> */}
     </div>
   );
 }

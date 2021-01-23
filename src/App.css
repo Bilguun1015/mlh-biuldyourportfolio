@@ -59,7 +59,7 @@ body {
   min-height: 100vh;
   color: var(--color-grey-dark-2);
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.7)),
-    url('./img/mlh.jpg') top / cover no-repeat;
+    url('./img/mlh-bg.jpg') top / cover no-repeat;
 }
 
 html {
@@ -72,13 +72,14 @@ html {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  min-height: 85vh;
+  /* min-height: 85vh; */
   min-width: 60vw;
   flex-direction: column;
   box-sizing: var(--shadow-dark);
   border-radius: 20px;
-  border: 1px solid red;
+  border: 1px solid var(--color-primary-light-2);
   overflow: hidden;
+  background: var(--color-grey-light-1);
   /* background: linear-gradient(
     to bottom,
     rgba(219, 178, 255, 1) 65%,
@@ -88,15 +89,65 @@ html {
 
 .header {
   color: var(--color-grey-light-2);
-  background: white;
   height: 30%;
   text-align: center;
   border-bottom: #fb5c05;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .heading-primary {
-  padding: 3rem;
+  padding-bottom: 3rem;
   font-size: 3rem;
+  color: var(--color-grey-dark-1);
+}
+
+.logo {
+  height: 5rem;
+  padding: 3rem;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+}
+
+.paragraph {
+  font-size: 1.4rem;
+  padding: 0 3rem;
+  padding-bottom: 3rem;
+}
+
+.btn,
+.btn:link,
+.btn:visited {
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1.5rem 3rem;
+  margin-right: 1rem;
+  display: inline-block;
+  border-radius: 10rem;
+  transition: all 0.2s;
+  position: relative;
+  font-size: 1.4rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.4s;
+  color: var(--color-primary);
+  align-self: flex-end;
+}
+
+.btn:hover {
+  transform: translateY(-0.3rem);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+}
+
+.btn:active,
+.btn:focus {
+  outline: none;
+  transform: translateY(-0.1rem);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
 }
 
 .form {
@@ -124,7 +175,6 @@ input:focus {
 }
 
 .form-container {
-  background: greenyellow;
   display: flex;
   flex-direction: column-reverse;
 }

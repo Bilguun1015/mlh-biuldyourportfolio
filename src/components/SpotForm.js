@@ -53,6 +53,7 @@ const SpotForm = (props) => {
       <h2 className='heading-secondary'>Add a stop</h2>
       <form onSubmit={onFormSubmit} className='form stop-form'>
         <label>Spot address</label>
+
         <input
           name='name'
           defaultValue={stopData.name}
