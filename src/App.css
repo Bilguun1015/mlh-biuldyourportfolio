@@ -55,19 +55,15 @@ error: #B00020;
 body {
   box-sizing: border-box;
   font-family: sans-serif;
-  /* padding: 15rem; */
   line-height: 1.6;
-  /* width: 100%; */
-  /* width: 1400px; */
   min-height: 100vh;
   color: var(--color-grey-dark-2);
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.7)),
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)),
     url('./img/mlh-bg.jpg') top / cover no-repeat;
 }
 
 html {
   font-size: 62.5%;
-  /* height: 100%; */
 }
 
 .container {
@@ -92,10 +88,11 @@ html {
 .header {
   color: var(--color-grey-light-2);
   text-align: center;
-  border-bottom: #fb5c05;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: #eddeeb;
+  border-bottom: 1px solid #fb5c05;
 }
 
 .heading-primary {
@@ -120,14 +117,13 @@ html {
 }
 
 .content {
-  /* border: 1px solid orangered; */
   position: relative;
   height: 13.7rem;
 }
 
 p {
   font-size: 1.4rem;
-  padding: 0 3rem;
+  padding: 3rem 3rem;
   padding-bottom: 3rem;
 }
 
@@ -158,8 +154,6 @@ p {
 
 .btn:focus {
   outline: none;
-  /* transform: translateY(-0.2rem);
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2); */
 }
 
 .btn:active {
@@ -174,10 +168,6 @@ p {
   cursor: not-allowed;
   color: var(--color-primary-light-2);
 }
-
-/* .btn:not(:hover) {
-  color: red;
-} */
 
 .form-container {
   display: flex;
@@ -200,9 +190,14 @@ p {
   z-index: -1;
 }
 
-/* .secondary-heading {
-  font-size: ;
-} */
+.secondary-heading {
+  font-size: 1.8rem;
+  text-transform: uppercase;
+}
+
+.tour-name {
+  color: var(--color-primary);
+}
 
 .form {
   display: flex;
@@ -220,12 +215,8 @@ p {
   font-size: 1.5rem;
   padding: 1rem 3rem;
   display: flex;
-  /* flex-direction: column; */
-  /* align-items: stretch; */
   text-align: left;
   align-items: center;
-  /* justify-content: space-evenly; */
-  /* flex-basis: 30%; */
 }
 
 .form__box .input {
@@ -233,7 +224,7 @@ p {
   color: inherit;
   border-color: transparent;
   border-bottom: 3px solid transparent;
-  border-radius: 2px;
+  border-radius: 4px;
   height: 2.5rem;
   width: 20rem;
 }
@@ -260,7 +251,6 @@ p {
 }
 
 .btn-box {
-  /* flex-basis: 100%; */
   display: flex;
   justify-content: space-between;
   transition: all 0.5s;

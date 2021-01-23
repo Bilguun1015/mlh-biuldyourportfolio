@@ -1,10 +1,11 @@
-# An app to
+# Tourtellini APP
 
-A user can input the location names in order to suggest a walking around the neighborhood
+It is an application for users to suggest different tours.
+A user will create a tour and add stops to the tour.
 
 ## MVP
 
-A form to get user's nam
+A user will be able to input a tour with minimum 1 stop.
 
 ## Tech-Stack
 

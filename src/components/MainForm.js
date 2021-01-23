@@ -4,9 +4,11 @@ import axios from 'axios';
 import SpotForm from './SpotForm';
 
 function MainForm(props) {
+  // Backend URL and props
   const createTourAPI = 'https://arcane-atoll-68110.herokuapp.com/tours/create';
   const { visible, setVisible, goForward, goBackward } = props;
 
+  //component state
   const [tourData, setTourData] = useState({
     tour_description: '',
     tour_name: '',
@@ -14,11 +16,13 @@ function MainForm(props) {
     stops: [],
   });
 
+  //go to stop form
   const onFormSubmit = (e) => {
     e.preventDefault();
     goForward();
   };
 
+  //set state with the input
   const onInputChange = (e) => {
     const { value, name } = e.target;
     setTourData({
@@ -27,6 +31,7 @@ function MainForm(props) {
     });
   };
 
+  //POST request and if successful back to the main page
   const submitTour = async () => {
     const response = await axios.post(createTourAPI, tourData);
     console.log(response);

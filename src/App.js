@@ -6,7 +6,10 @@ import logo from './img/mlh-logo.png';
 import './App.css';
 
 function App() {
+  //visible sets the visibile and invisible classnames
   const [visible, setVisible] = useState(1);
+
+  //goes between the diffferent form views
   const goForward = () => {
     setVisible(visible + 1);
   };

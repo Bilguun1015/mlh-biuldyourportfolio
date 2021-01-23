@@ -59,7 +59,9 @@ const SpotForm = (props) => {
     <div
       className={visible === 3 ? 'stop-container slide-up' : 'stop-container'}
     >
-      <h2 className='heading-secondary'>Add a stop to {tourData.tour_name}</h2>
+      <h2 className='secondary-heading'>
+        Add stops to <span className='tour-name'>{tourData.tour_name}</span>
+      </h2>
       <form onSubmit={onFormSubmit} className='form stop-form'>
         <div className='form__box'>
           <label>Stop name</label>
