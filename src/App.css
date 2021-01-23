@@ -275,7 +275,7 @@ p {
 }
 
 .slide-up {
-  transform: translateY(-100%);
+  transform: translateY(-90%);
   z-index: 20;
   opacity: 1;
 }
