@@ -27,23 +27,23 @@ const SpotForm = (props) => {
     e.preventDefault();
     // axios call to the Google APi to get the lat and lng
 
-    const result = await axios.get(
-      `${geocodeAPI}address=${stopData.address}&key=${process.env.REACT_APP_GOOGLE_KEY}`
-    );
-    const { geometry, formatted_address } = result.data.results[0];
+    // const result = await axios.get(
+    //   `${geocodeAPI}address=${stopData.address}&key=${process.env.REACT_APP_GOOGLE_KEY}`
+    // );
+    // const { geometry, formatted_address } = result.data.results[0];
     // build up the data from succesful call
 
-    const newData = {
-      stop_number: stopData.stop_number,
-      name: stopData.name,
-      lat: geometry.location.lat,
-      lng: geometry.location.lng,
-      address: formatted_address,
-      user_comment: stopData.user_comment,
-    };
+    // const newData = {
+    //   stop_number: stopData.stop_number,
+    //   name: stopData.name,
+    //   lat: geometry.location.lat,
+    //   lng: geometry.location.lng,
+    //   address: formatted_address,
+    //   user_comment: stopData.user_comment,
+    // };
 
-    setTourData({ ...tourData, stops: [...tourData.stops, newData] });
-    setStopData({ ...stopData, stop_number: stopData.stop_number + 1 });
+    // setTourData({ ...tourData, stops: [...tourData.stops, newData] });
+    // setStopData({ ...stopData, stop_number: stopData.stop_number + 1 });
   };
 
   const displayStops = () => {
@@ -69,6 +69,7 @@ const SpotForm = (props) => {
             name='name'
             defaultValue={stopData.name}
             onChange={onInputChange}
+            placeholder='required'
           ></input>
         </div>
         <div className='form__box'>
@@ -78,6 +79,7 @@ const SpotForm = (props) => {
             name='address'
             defaultValue={stopData.address}
             onChange={onInputChange}
+            placeholder='required'
           ></input>
         </div>
         <div className='form__box long'>
@@ -89,15 +91,19 @@ const SpotForm = (props) => {
             onChange={onInputChange}
           ></textarea>
         </div>
-        <div className='btn-box'>
-          <button className='btn' onClick={goBackward}>
-            &larr; Back
-          </button>
-          <button onClick={onFormSubmit} className='btn'>
-            Add a spot
-          </button>
-        </div>
       </form>
+      <div className='btn-box'>
+        <button className='btn' onClick={goBackward}>
+          &larr; Back
+        </button>
+        <button
+          onClick={onFormSubmit}
+          className='btn'
+          disabled={stopData.name && stopData.address ? false : true}
+        >
+          Add a stop
+        </button>
+      </div>
       <div className='stops'>
         {tourData.stops.length ? (
           <div>

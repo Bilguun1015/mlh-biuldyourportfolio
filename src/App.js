@@ -11,13 +11,15 @@ function App() {
     setVisible(visible + 1);
   };
   const goBackward = () => {
-    setVisible(visible - 1);
+    if (visible !== 1) {
+      setVisible(visible - 1);
+    }
   };
 
   return (
-    <div className='container'>
+    <div className={visible === 1 ? 'container small' : 'container big'}>
       <header className='header'>
-        <img src={logo} alt='tourtellini logo' class='logo' />
+        <img src={logo} alt='tourtellini logo' className='logo' />
         <h1 className='heading-primary'>Tourtellini</h1>
       </header>
       <main className={visible === 1 ? 'main visible' : 'main invisible'}>
@@ -29,7 +31,7 @@ function App() {
           lacinia sed, semper vel risus. Curabitur ut est vel tellus efficitur
           rutrum. Duis fringilla turpis nibh, quis placerat sem sollicitudin id.
         </p>
-        <button class='btn' onClick={goForward}>
+        <button className='btn' onClick={goForward}>
           Build your tour &rarr;
         </button>
       </main>
@@ -37,6 +39,7 @@ function App() {
         visible={visible}
         goForward={goForward}
         goBackward={goBackward}
+        setVisible={setVisible}
       />
     </div>
   );
