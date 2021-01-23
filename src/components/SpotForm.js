@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 const SpotForm = (props) => {
@@ -49,8 +49,10 @@ const SpotForm = (props) => {
   };
 
   return (
-    <>
-      <form onSubmit={onFormSubmit}>
+    <div className='stop-container'>
+      <h2 className='heading-secondary'>Add a stop</h2>
+      <form onSubmit={onFormSubmit} className='form stop-form'>
+        <label>Spot address</label>
         <input
           name='name'
           defaultValue={stopData.name}
@@ -73,7 +75,7 @@ const SpotForm = (props) => {
         ></input>
         <button type='submit'>Add a stop</button>
       </form>
-    </>
+    </div>
   );
 };
 

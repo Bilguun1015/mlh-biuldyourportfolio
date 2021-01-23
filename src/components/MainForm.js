@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 import SpotForm from './SpotForm';
@@ -30,34 +30,40 @@ function MainForm() {
   };
 
   return (
-    <>
-      <form onSubmit={onFormSubmit}>
-        <label>Your name </label>
-        <input
-          name='user_id'
-          defaultValue={tourData.user_id}
-          onChange={onInputChange}
-          placeholder='name...'
-        />
-        <label>Tour Name </label>
-        <input
-          name='tour_name'
-          defaultValue={tourData.tour_name}
-          onChange={onInputChange}
-          placeholder='tour name...'
-        />
-        <label>Tour Description </label>
-        <input
-          name='tour_description'
-          defaultValue={tourData.tour_description}
-          onChange={onInputChange}
-          placeholder='tour description...'
-        />
+    <div className='form-container'>
+      <form onSubmit={onFormSubmit} className='form main-form'>
+        <div className='form__box'>
+          <label>Your name </label>
+          <input
+            name='user_id'
+            defaultValue={tourData.user_id}
+            onChange={onInputChange}
+            placeholder='name...'
+          />
+        </div>
+        <div className='form__box'>
+          <label>Tour Name </label>
+          <input
+            name='tour_name'
+            defaultValue={tourData.tour_name}
+            onChange={onInputChange}
+            placeholder='tour name...'
+          />
+        </div>
+        <div className='form__box'>
+          <label>Tour Description </label>
+          <input
+            name='tour_description'
+            defaultValue={tourData.tour_description}
+            onChange={onInputChange}
+            placeholder='tour description...'
+          />
+        </div>
         <button type='submit'>send</button>
       </form>
 
       <SpotForm tourData={tourData} setTourData={setTourData} />
-    </>
+    </div>
   );
 }
 
