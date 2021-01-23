@@ -13,9 +13,12 @@ function MainForm() {
     stops: [],
   });
 
-  const onFormSubmit = (e) => {
+  const onFormSubmit = async (e) => {
     e.preventDefault();
-    console.log(tourData);
+    // console.log(tourData);
+    const response = await axios.post(createTourAPI, tourData);
+
+    console.log(response);
   };
 
   const onInputChange = (e) => {

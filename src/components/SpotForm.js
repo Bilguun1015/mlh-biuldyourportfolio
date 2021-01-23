@@ -3,17 +3,14 @@ import axios from 'axios';
 
 const SpotForm = (props) => {
   // variables and props
-  const { tourData, setTourData } = props;
-  const { REACT_APP_GOOGLE_KEY } = process.env;
   const geocodeAPI = 'https://maps.googleapis.com/maps/api/geocode/json?';
+  const { tourData, setTourData } = props;
 
   // component state
   const [stopData, setStopData] = useState({
     stop_number: 0,
     name: '',
-    lat: 73.23321,
-    lng: -123.32521,
-    address: '123 Coffee Lane, NY, NY ZIPCODE',
+    address: '',
     user_comment: '',
   });
 
@@ -28,25 +25,54 @@ const SpotForm = (props) => {
 
   // axios call to get longitude and latitude from Google geocaode API
   const onFormSubmit = async (e) => {
+    e.preventDefault();
+    // axios call to the Google APi to get the lat and lng
+
     const result = await axios.get(
-      `${geocodeAPI}address=${stopData.address}&key=${REACT_APP_GOOGLE_KEY}`
+      `${geocodeAPI}address=${stopData.address}&key=${process.env.REACT_APP_GOOGLE_KEY}`
     );
-    const { data } = result;
-    console.log(data);
+    const { geometry, formatted_address } = result.data.results[0];
+    // console.log(geometry.location.lat, formatted_address);
+    // build up the data from succesful call
+
+    const newData = {
+      stop_number: stopData.stop_number,
+      name: stopData.name,
+      lat: geometry.location.lat,
+      lng: geometry.location.lng,
+      address: formatted_address,
+      user_comment: stopData.user_comment,
+    };
+
+    setTourData({ ...tourData, stops: [...tourData.stops, newData] });
+    setStopData({ ...stopData, stop_number: stopData.stop_number + 1 });
   };
 
   return (
     <>
       <form onSubmit={onFormSubmit}>
         <input
+          name='name'
+          defaultValue={stopData.name}
+          onChange={onInputChange}
+          placeholder='name'
+          required
+        ></input>
+        <input
           name='address'
           defaultValue={stopData.address}
           onChange={onInputChange}
           placeholder='address'
+          required
         ></input>
-        <button type='submit'>Add a spot</button>
+        <input
+          name='user_comment'
+          defaultValue={stopData.user_comment}
+          onChange={onInputChange}
+          placeholder='comment'
+        ></input>
+        <button type='submit'>Add a stop</button>
       </form>
-      <button>Submit your tour</button>
     </>
   );
 };
