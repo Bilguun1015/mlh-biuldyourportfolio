@@ -184,7 +184,7 @@ const SpotForm = (props) => {
         <button
           onClick={onFormSubmit}
           className='btn'
-          disabled={stopData.name && query ? false : true}
+          disabled={stopData.name && query.address ? false : true}
         >
           Add a stop
         </button>
