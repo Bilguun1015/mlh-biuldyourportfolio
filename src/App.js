@@ -21,6 +21,7 @@ function App() {
 
   return (
     <div className={visible === 1 ? 'container small' : 'container big'}>
+      <div id='autocomplete'></div>
       <header className='header'>
         <img src={logo} alt='tourtellini logo' className='logo' />
         <h1 className='heading-primary'>Tourtellini</h1>

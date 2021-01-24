@@ -1,17 +1,73 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, useRef } from 'react';
+
+let autoComplete;
+
+const loadScript = (url, callback) => {
+  let script = document.createElement('script');
+  script.type = 'text/javascript';
+
+  if (script.readyState) {
+    script.onreadystatechange = function () {
+      if (script.readyState === 'loaded' || script.readyState === 'complete') {
+        script.onreadystatechange = null;
+        callback();
+      }
+    };
+  } else {
+    script.onload = () => callback();
+  }
+
+  script.src = url;
+  document.getElementsByTagName('head')[0].appendChild(script);
+};
+
+function handleScriptLoad(updateQuery, autoCompleteRef) {
+  autoComplete = new window.google.maps.places.Autocomplete(
+    autoCompleteRef.current,
+    { types: ['geocode'] }
+  );
+  autoComplete.setFields([
+    'address_components',
+    'formatted_address',
+    'geometry',
+  ]);
+  autoComplete.addListener('place_changed', () =>
+    handlePlaceSelect(updateQuery)
+  );
+}
+
+async function handlePlaceSelect(updateQuery) {
+  const addressObject = autoComplete.getPlace();
+  const query = addressObject.formatted_address;
+  const lat = addressObject.geometry.location.lat();
+  const lng = addressObject.geometry.location.lng();
+  updateQuery({ address: query, lat: lat, lng: lng });
+  console.log(addressObject);
+}
 
 const SpotForm = (props) => {
   // variables and props
-  const geocodeAPI = 'https://maps.googleapis.com/maps/api/geocode/json?';
+  const autoCompleteRef = useRef(null);
   const { tourData, setTourData, visible, goBackward, submitTour } = props;
   // component state
   const [stopData, setStopData] = useState({
     stop_number: 0,
     name: '',
-    address: '',
     user_comment: '',
   });
+
+  const [query, setQuery] = useState({
+    address: '',
+    lat: 0,
+    lng: 0,
+  });
+
+  useEffect(() => {
+    loadScript(
+      `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_JS_KEY}&libraries=places`,
+      () => handleScriptLoad(setQuery, autoCompleteRef)
+    );
+  }, []);
 
   // setting input into state
   const onInputChange = (e) => {
@@ -22,22 +78,15 @@ const SpotForm = (props) => {
     });
   };
 
-  // axios call to get longitude and latitude from Google geocaode API
+  // building final object to submit to backend
   const onFormSubmit = async (e) => {
     e.preventDefault();
-    // axios call to the Google APi to get the lat and lng
-    const result = await axios.get(
-      `${geocodeAPI}address=${stopData.address}&key=${process.env.REACT_APP_GOOGLE_KEY}`
-    );
-    const { geometry, formatted_address } = result.data.results[0];
-
-    // build up the data from succesful call
     const newData = {
       stop_number: stopData.stop_number,
       name: stopData.name,
-      lat: geometry.location.lat,
-      lng: geometry.location.lng,
-      address: formatted_address,
+      lat: query.lat,
+      lng: query.lng,
+      address: query.address,
       user_comment: stopData.user_comment,
     };
 
@@ -77,11 +126,13 @@ const SpotForm = (props) => {
           <label>Stop address</label>
           <input
             className='input'
-            name='address'
-            defaultValue={stopData.address}
-            onChange={onInputChange}
+            ref={autoCompleteRef}
+            onChange={(event) =>
+              setQuery({ ...query, address: event.target.value })
+            }
             placeholder='required'
-          ></input>
+            value={query.address}
+          />
         </div>
         <div className='form__box long'>
           <label>Stop comment</label>
@@ -101,7 +152,7 @@ const SpotForm = (props) => {
         <button
           onClick={onFormSubmit}
           className='btn'
-          disabled={stopData.name && stopData.address ? false : true}
+          disabled={stopData.name && query ? false : true}
         >
           Add a stop
         </button>

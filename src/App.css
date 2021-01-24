@@ -70,7 +70,6 @@ html {
   display: flex;
   flex-direction: column;
   max-width: 80rem;
-  min-height: 90vh;
   margin: 10rem auto;
   box-sizing: var(--shadow-dark);
   border-radius: 20px;
@@ -103,6 +102,7 @@ html {
 
 .secondary-heading {
   flex-basis: 100%;
+  padding-top: 3rem;
 }
 
 .logo {
@@ -170,24 +170,17 @@ p {
 }
 
 .form-container {
-  display: flex;
   flex-direction: column;
   text-align: center;
-  /* display: none; */
-  position: absolute;
-  top: 28%;
-  left: 0;
   height: 100%;
 }
 
 .visible {
-  opacity: 1 !important;
-  z-index: 10;
+  display: flex;
 }
 
 .invisible {
-  opacity: 0 !important;
-  z-index: -1;
+  display: none !important;
 }
 
 .secondary-heading {
@@ -203,12 +196,6 @@ p {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-}
-
-.main-form {
-  opacity: 0;
-  z-index: 1;
-  transition: all 0.5s;
 }
 
 .form__box {
@@ -241,7 +228,6 @@ p {
 
 .long {
   flex-basis: 100%;
-  /* justify-self: flex-start; */
 }
 
 .long .input {
@@ -254,26 +240,23 @@ p {
   display: flex;
   justify-content: space-between;
   transition: all 0.5s;
+  padding-bottom: 3rem;
 }
 
 .stop-container {
-  transform: translateY(-150%);
-  transition: all 0.5s ease-out;
-  opacity: 0;
-  display: flex;
-  flex-direction: column;
+  display: none;
 }
 
 .slide-up {
-  transform: translateY(-90%);
-  z-index: 20;
-  opacity: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .stops {
   display: flex;
   flex-wrap: wrap;
   padding: 0 3rem;
+  justify-content: center;
 }
 
 .stop {
