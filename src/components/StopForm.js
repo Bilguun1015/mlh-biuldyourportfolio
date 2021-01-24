@@ -49,7 +49,7 @@ async function handlePlaceSelect(updateQuery) {
 const SpotForm = (props) => {
   // variables and props
   const autoCompleteRef = useRef(null);
-  const { tourData, setTourData, visible, goBackward } = props;
+  const { tourData, setTourData, visible, goBackward, setVisible } = props;
   const createTourAPI = 'https://arcane-atoll-68110.herokuapp.com/tours/create';
   // component state
   const [stopData, setStopData] = useState({
@@ -64,7 +64,6 @@ const SpotForm = (props) => {
     lng: 0,
   });
 
-  const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -103,8 +102,8 @@ const SpotForm = (props) => {
   const submitTour = async () => {
     const response = await axios.post(createTourAPI, tourData);
     if (response.status === 200) {
-      setSuccess(true);
       //resetting all the states
+      setError(false);
       setStopData({
         stop_number: 0,
         name: '',
@@ -121,6 +120,7 @@ const SpotForm = (props) => {
         user_id: '',
         stops: [],
       });
+      setVisible(1);
     } else {
       setError(true);
     }
@@ -199,9 +199,6 @@ const SpotForm = (props) => {
           </div>
         ) : null}
       </div>
-      {success ? (
-        <p>Tour {tourData.tour_name} successfully submitted!</p>
-      ) : null}
       {error ? <p>Something wrong happened. Try again..</p> : null}
     </div>
   );
