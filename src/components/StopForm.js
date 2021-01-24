@@ -86,6 +86,7 @@ const SpotForm = (props) => {
         <div className='form__box long'>
           <label>Stop comment</label>
           <textarea
+            maxLength='300'
             className='input'
             name='user_comment'
             defaultValue={stopData.user_comment}

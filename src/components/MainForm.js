@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-import SpotForm from './SpotForm';
+import SpotForm from './StopForm';
 
 function MainForm(props) {
   // Backend URL and props
