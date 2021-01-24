@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 
 import SpotForm from './StopForm';
 
 function MainForm(props) {
   // Backend URL and props
-  const createTourAPI = 'https://arcane-atoll-68110.herokuapp.com/tours/create';
+
   const { visible, setVisible, goForward, goBackward } = props;
 
   //component state
@@ -31,15 +30,6 @@ function MainForm(props) {
     });
   };
 
-  //POST request and if successful back to the main page
-  const submitTour = async () => {
-    const response = await axios.post(createTourAPI, tourData);
-    console.log(response);
-    if (response.status === 200) {
-      setVisible(1);
-    }
-  };
-
   return (
     <div className='form-container'>
       <form
@@ -53,7 +43,7 @@ function MainForm(props) {
           <input
             className='input'
             name='user_id'
-            defaultValue={tourData.user_id}
+            value={tourData.user_id}
             onChange={onInputChange}
             placeholder='required...'
           />
@@ -63,7 +53,7 @@ function MainForm(props) {
           <input
             className='input'
             name='tour_name'
-            defaultValue={tourData.tour_name}
+            value={tourData.tour_name}
             onChange={onInputChange}
             placeholder='required...'
           />
@@ -73,7 +63,7 @@ function MainForm(props) {
           <textarea
             className='input'
             name='tour_description'
-            defaultValue={tourData.tour_description}
+            value={tourData.tour_description}
             onChange={onInputChange}
             placeholder='required...'
           />
@@ -102,7 +92,7 @@ function MainForm(props) {
         visible={visible}
         goForward={goForward}
         goBackward={goBackward}
-        submitTour={submitTour}
+        setVisible={setVisible}
       />
     </div>
   );

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 
 let autoComplete;
 
@@ -48,7 +49,8 @@ async function handlePlaceSelect(updateQuery) {
 const SpotForm = (props) => {
   // variables and props
   const autoCompleteRef = useRef(null);
-  const { tourData, setTourData, visible, goBackward, submitTour } = props;
+  const { tourData, setTourData, visible, goBackward } = props;
+  const createTourAPI = 'https://arcane-atoll-68110.herokuapp.com/tours/create';
   // component state
   const [stopData, setStopData] = useState({
     stop_number: 0,
@@ -61,6 +63,9 @@ const SpotForm = (props) => {
     lat: 0,
     lng: 0,
   });
+
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     loadScript(
@@ -94,6 +99,33 @@ const SpotForm = (props) => {
     setStopData({ ...stopData, stop_number: stopData.stop_number + 1 });
   };
 
+  //POST request and if successful back to the main page
+  const submitTour = async () => {
+    const response = await axios.post(createTourAPI, tourData);
+    if (response.status === 200) {
+      setSuccess(true);
+      //resetting all the states
+      setStopData({
+        stop_number: 0,
+        name: '',
+        user_comment: '',
+      });
+      setQuery({
+        address: '',
+        lat: 0,
+        lng: 0,
+      });
+      setTourData({
+        tour_description: '',
+        tour_name: '',
+        user_id: '',
+        stops: [],
+      });
+    } else {
+      setError(true);
+    }
+  };
+
   const displayStops = () => {
     return tourData.stops.map((stop, i) => {
       return (
@@ -117,7 +149,7 @@ const SpotForm = (props) => {
           <input
             className='input'
             name='name'
-            defaultValue={stopData.name}
+            value={stopData.name}
             onChange={onInputChange}
             placeholder='required'
           ></input>
@@ -140,7 +172,7 @@ const SpotForm = (props) => {
             maxLength='300'
             className='input'
             name='user_comment'
-            defaultValue={stopData.user_comment}
+            value={stopData.user_comment}
             onChange={onInputChange}
           ></textarea>
         </div>
@@ -167,6 +199,10 @@ const SpotForm = (props) => {
           </div>
         ) : null}
       </div>
+      {success ? (
+        <p>Tour {tourData.tour_name} successfully submitted!</p>
+      ) : null}
+      {error ? <p>Something wrong happened. Try again..</p> : null}
     </div>
   );
 };

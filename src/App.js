@@ -28,12 +28,14 @@ function App() {
       </header>
       <main className={visible === 1 ? 'main visible' : 'main invisible'}>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
-          augue enim, bibendum nec rhoncus eu, hendrerit blandit velit. Nunc
-          varius laoreet libero. Morbi sed mollis erat. Sed volutpat interdum
-          sapien, in pharetra turpis cursus sit amet. Nam est massa, auctor eget
-          lacinia sed, semper vel risus. Curabitur ut est vel tellus efficitur
-          rutrum. Duis fringilla turpis nibh, quis placerat sem sollicitudin id.
+          Professional development is a lot about setting goals and finding your
+          way to your destination. Whether it is first day of classes in a new
+          building on a part of campus you have never been to, or a job
+          interview, making it there, and being early, are part of the
+          preparation and expectations we set for ourselves, and each other.
+          Being late or getting lost is a poor way of making a first impression,
+          and not a habit that anyone wants to be associated with. Never get
+          lost on campus, or in life, again.
         </p>
         <button className='btn' onClick={goForward}>
           Build your tour &rarr;
